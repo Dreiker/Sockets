@@ -14,12 +14,15 @@ public class Cliente {
     
     public static void main(String[] args) {
         try {
-            Socket socketConectado = new Socket(DIRECCION_SERVIDOR, PUERTO);
-
-            DataOutputStream salida = new DataOutputStream(socketConectado.getOutputStream());
+            //Creamos el socket correspondiente del cliente.
+            Socket socket = new Socket(DIRECCION_SERVIDOR, PUERTO);
+            
+            //Escribimos en la salida el mensaje que será recibido por el servidor.
+            DataOutputStream salida = new DataOutputStream(socket.getOutputStream());
             salida.writeUTF("Mensaje enviado desde el cliente.");
-
-            DataInputStream entrada = new DataInputStream(socketConectado.getInputStream());
+            
+            //Miramos lo que hay escrito en la entrada que ha sido recibido desde el servidor.
+            DataInputStream entrada = new DataInputStream(socket.getInputStream());
             System.out.println(entrada.readUTF());
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
